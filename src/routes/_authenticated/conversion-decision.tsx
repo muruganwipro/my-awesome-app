@@ -74,37 +74,39 @@ function ConversionDecisionPage() {
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSubmit} className="flex flex-col gap-5">
-            <div className="grid gap-2">
-              <Label htmlFor="batchId">Batch ID</Label>
-              <Input
-                id="batchId"
-                type="text"
-                placeholder="224456A"
-                value={values.batchId}
-                onChange={handleChange("batchId")}
-              />
-            </div>
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
+              <div className="grid gap-2">
+                <Label htmlFor="batchId">Batch ID</Label>
+                <Input
+                  id="batchId"
+                  type="text"
+                  placeholder="224456A"
+                  value={values.batchId}
+                  onChange={handleChange("batchId")}
+                />
+              </div>
 
-            <div className="grid gap-2">
-              <Label htmlFor="patientId">Patient ID</Label>
-              <Input
-                id="patientId"
-                type="text"
-                placeholder="2X61-600SC"
-                value={values.patientId}
-                onChange={handleChange("patientId")}
-              />
-            </div>
+              <div className="grid gap-2">
+                <Label htmlFor="patientId">Patient ID</Label>
+                <Input
+                  id="patientId"
+                  type="text"
+                  placeholder="2X61-600SC"
+                  value={values.patientId}
+                  onChange={handleChange("patientId")}
+                />
+              </div>
 
-            <div className="grid gap-2">
-              <Label htmlFor="enrollmentId">Enrollment ID</Label>
-              <Input
-                id="enrollmentId"
-                type="text"
-                placeholder="ENR-024760"
-                value={values.enrollmentId}
-                onChange={handleChange("enrollmentId")}
-              />
+              <div className="grid gap-2">
+                <Label htmlFor="enrollmentId">Enrollment ID</Label>
+                <Input
+                  id="enrollmentId"
+                  type="text"
+                  placeholder="ENR-024760"
+                  value={values.enrollmentId}
+                  onChange={handleChange("enrollmentId")}
+                />
+              </div>
             </div>
 
             <div className="grid gap-2">
