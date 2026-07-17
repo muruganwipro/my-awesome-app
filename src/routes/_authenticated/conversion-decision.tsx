@@ -55,6 +55,11 @@ function ConversionDecisionPage() {
     console.log("Conversion decision payload:", values);
   }
 
+  function handleCancel() {
+    setValues(initialValues);
+    toast.info("Form reset.");
+  }
+
   return (
     <main className="mx-auto w-full max-w-2xl px-6 py-10">
       <Link
