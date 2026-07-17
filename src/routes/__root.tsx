@@ -4,6 +4,7 @@ import {
   Link,
   createRootRouteWithContext,
   useRouter,
+  useNavigate,
   HeadContent,
   Scripts,
 } from "@tanstack/react-router";
@@ -12,6 +13,19 @@ import { useEffect, type ReactNode } from "react";
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { cn } from "@/lib/utils";
+import { AuthProvider, useAuth } from "@/hooks/use-auth";
+import { supabase } from "@/integrations/supabase/client";
+import { Toaster } from "@/components/ui/sonner";
+import { Button } from "@/components/ui/button";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 
 function NotFoundComponent() {
   return (
@@ -127,8 +141,57 @@ function TopNav() {
           <NavLink to="/">Home</NavLink>
           <NavLink to="/workflows">Workflows</NavLink>
         </nav>
+        <div className="ml-auto">
+          <UserMenu />
+        </div>
       </div>
     </header>
+  );
+}
+
+function UserMenu() {
+  const { user, loading } = useAuth();
+  const navigate = useNavigate();
+
+  if (loading) return null;
+
+  if (!user) {
+    return (
+      <Button size="sm" onClick={() => navigate({ to: "/auth" })}>
+        Sign in
+      </Button>
+    );
+  }
+
+  const label = (user.user_metadata?.display_name as string | undefined) || user.email || "Account";
+  const initial = label.charAt(0).toUpperCase();
+
+  async function handleSignOut() {
+    await supabase.auth.signOut();
+    navigate({ to: "/auth", replace: true });
+  }
+
+  return (
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <button className="flex items-center gap-2 rounded-full text-sm outline-none focus-visible:ring-2 focus-visible:ring-ring">
+          <Avatar className="size-8">
+            <AvatarFallback>{initial}</AvatarFallback>
+          </Avatar>
+          <span className="hidden max-w-[160px] truncate text-foreground sm:inline">{label}</span>
+        </button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent align="end" className="w-56">
+        <DropdownMenuLabel className="flex flex-col">
+          <span className="truncate font-medium">{label}</span>
+          {user.email && label !== user.email && (
+            <span className="truncate text-xs font-normal text-muted-foreground">{user.email}</span>
+          )}
+        </DropdownMenuLabel>
+        <DropdownMenuSeparator />
+        <DropdownMenuItem onClick={handleSignOut}>Sign out</DropdownMenuItem>
+      </DropdownMenuContent>
+    </DropdownMenu>
   );
 }
 
@@ -153,11 +216,14 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <div className="flex min-h-screen flex-col bg-background">
-        <TopNav />
-        {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
-        <Outlet />
-      </div>
+      <AuthProvider>
+        <div className="flex min-h-screen flex-col bg-background">
+          <TopNav />
+          {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
+          <Outlet />
+        </div>
+        <Toaster />
+      </AuthProvider>
     </QueryClientProvider>
   );
 }
