@@ -29,6 +29,15 @@ const initialValues = {
   alternatePhysicianName: "",
   physicianEmail: "",
   lotType: "",
+  consultationNotes: "",
+  materialNo: "",
+  plant: "",
+  customerId: "",
+  quantity: "",
+  salesOrganization: "",
+  distributionChannel: "",
+  division: "",
+  partyAddress: "",
 };
 
 function ConversionDecisionPage() {
