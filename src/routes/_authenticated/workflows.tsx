@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { GitBranch, Upload } from "lucide-react";
+import { GitBranch, MessageSquare } from "lucide-react";
 
 export const Route = createFileRoute("/_authenticated/workflows")({
   head: () => ({
