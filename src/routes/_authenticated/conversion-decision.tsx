@@ -55,6 +55,11 @@ function ConversionDecisionPage() {
     console.log("Conversion decision payload:", values);
   }
 
+  function handleCancel() {
+    setValues(initialValues);
+    toast.info("Form reset.");
+  }
+
   return (
     <main className="mx-auto w-full max-w-2xl px-6 py-10">
       <Link
@@ -264,10 +269,19 @@ function ConversionDecisionPage() {
               />
             </div>
 
-            <Button type="submit" className="mt-2 w-full sm:w-auto">
-              <Send className="size-4" />
-              Submit
-            </Button>
+            <div className="mt-2 flex flex-col gap-3 sm:flex-row">
+              <Button
+                type="button"
+                onClick={handleCancel}
+                className="w-full bg-red-600 hover:bg-red-700 sm:w-auto"
+              >
+                Cancel
+              </Button>
+              <Button type="submit" className="w-full sm:w-auto">
+                <Send className="size-4" />
+                Submit
+              </Button>
+            </div>
           </form>
         </CardContent>
       </Card>
