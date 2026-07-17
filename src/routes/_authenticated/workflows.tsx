@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { GitBranch } from "lucide-react";
 
-export const Route = createFileRoute("/workflows")({
+export const Route = createFileRoute("/_authenticated/workflows")({
   head: () => ({
     meta: [
       { title: "Workflows — Dashboard" },
