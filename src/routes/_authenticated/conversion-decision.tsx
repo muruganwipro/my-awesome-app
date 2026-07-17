@@ -133,26 +133,28 @@ function ConversionDecisionPage() {
               </div>
             </div>
 
-            <div className="grid gap-2">
-              <Label htmlFor="physicianEmail">Physician Email</Label>
-              <Input
-                id="physicianEmail"
-                type="email"
-                placeholder="jkoff@emory.edu"
-                value={values.physicianEmail}
-                onChange={handleChange("physicianEmail")}
-              />
-            </div>
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+              <div className="grid gap-2">
+                <Label htmlFor="physicianEmail">Physician Email</Label>
+                <Input
+                  id="physicianEmail"
+                  type="email"
+                  placeholder="jkoff@emory.edu"
+                  value={values.physicianEmail}
+                  onChange={handleChange("physicianEmail")}
+                />
+              </div>
 
-            <div className="grid gap-2">
-              <Label htmlFor="lotType">Lot Type</Label>
-              <Input
-                id="lotType"
-                type="text"
-                placeholder="EAP"
-                value={values.lotType}
-                onChange={handleChange("lotType")}
-              />
+              <div className="grid gap-2">
+                <Label htmlFor="lotType">Lot Type</Label>
+                <Input
+                  id="lotType"
+                  type="text"
+                  placeholder="EAP"
+                  value={values.lotType}
+                  onChange={handleChange("lotType")}
+                />
+              </div>
             </div>
 
             <div className="grid gap-2">
