@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { GitBranch, Upload } from "lucide-react";
+import { GitBranch, MessageSquare } from "lucide-react";
 
 export const Route = createFileRoute("/_authenticated/workflows")({
   head: () => ({
@@ -41,11 +41,11 @@ function WorkflowsPage() {
             className="flex items-center gap-4 rounded-xl border bg-background p-4 transition-colors hover:bg-accent hover:text-accent-foreground"
           >
             <div className="flex size-10 items-center justify-center rounded-lg bg-primary/10">
-              <Upload className="size-5 text-primary" />
+              <MessageSquare className="size-5 text-primary" />
             </div>
             <div>
-              <p className="font-medium text-foreground">Upload Physician Details</p>
-              <p className="text-sm text-muted-foreground">Send physician information to processing.</p>
+              <p className="font-medium text-foreground">Communicate Conversion Decision to BMS</p>
+              <p className="text-sm text-muted-foreground">Notify BMS of the conversion decision.</p>
             </div>
           </Link>
         </div>
