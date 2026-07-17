@@ -172,37 +172,39 @@ function ConversionDecisionPage() {
               <h3 className="text-base font-semibold text-foreground">Send Request to create Sales order in SAP</h3>
             </div>
 
-            <div className="grid gap-2">
-              <Label htmlFor="materialNo">Material No</Label>
-              <Input
-                id="materialNo"
-                type="text"
-                placeholder="4075260"
-                value={values.materialNo}
-                onChange={handleChange("materialNo")}
-              />
-            </div>
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
+              <div className="grid gap-2">
+                <Label htmlFor="materialNo">Material No</Label>
+                <Input
+                  id="materialNo"
+                  type="text"
+                  placeholder="4075260"
+                  value={values.materialNo}
+                  onChange={handleChange("materialNo")}
+                />
+              </div>
 
-            <div className="grid gap-2">
-              <Label htmlFor="plant">Plant</Label>
-              <Input
-                id="plant"
-                type="text"
-                placeholder="1000"
-                value={values.plant}
-                onChange={handleChange("plant")}
-              />
-            </div>
+              <div className="grid gap-2">
+                <Label htmlFor="plant">Plant</Label>
+                <Input
+                  id="plant"
+                  type="text"
+                  placeholder="1000"
+                  value={values.plant}
+                  onChange={handleChange("plant")}
+                />
+              </div>
 
-            <div className="grid gap-2">
-              <Label htmlFor="customerId">Customer ID</Label>
-              <Input
-                id="customerId"
-                type="text"
-                placeholder="40001"
-                value={values.customerId}
-                onChange={handleChange("customerId")}
-              />
+              <div className="grid gap-2">
+                <Label htmlFor="customerId">Customer ID</Label>
+                <Input
+                  id="customerId"
+                  type="text"
+                  placeholder="40001"
+                  value={values.customerId}
+                  onChange={handleChange("customerId")}
+                />
+              </div>
             </div>
 
             <div className="grid gap-2">
