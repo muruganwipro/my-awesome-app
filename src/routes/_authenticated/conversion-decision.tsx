@@ -172,7 +172,7 @@ function ConversionDecisionPage() {
               <h3 className="text-base font-semibold text-foreground">Send Request to create Sales order in SAP</h3>
             </div>
 
-            <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-4">
               <div className="grid gap-2">
                 <Label htmlFor="materialNo">Material No</Label>
                 <Input
@@ -205,17 +205,17 @@ function ConversionDecisionPage() {
                   onChange={handleChange("customerId")}
                 />
               </div>
-            </div>
 
-            <div className="grid gap-2">
-              <Label htmlFor="quantity">Quantity</Label>
-              <Input
-                id="quantity"
-                type="text"
-                placeholder="10"
-                value={values.quantity}
-                onChange={handleChange("quantity")}
-              />
+              <div className="grid gap-2">
+                <Label htmlFor="quantity">Quantity</Label>
+                <Input
+                  id="quantity"
+                  type="text"
+                  placeholder="10"
+                  value={values.quantity}
+                  onChange={handleChange("quantity")}
+                />
+              </div>
             </div>
 
             <div className="grid gap-2">
