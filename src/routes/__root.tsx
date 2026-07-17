@@ -141,9 +141,6 @@ function TopNav() {
           <NavLink to="/">Home</NavLink>
           <NavLink to="/workflows">Workflows</NavLink>
         </nav>
-        <div className="ml-auto">
-          <UserMenu />
-        </div>
       </div>
     </header>
   );
