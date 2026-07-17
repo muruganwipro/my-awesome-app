@@ -218,37 +218,39 @@ function ConversionDecisionPage() {
               </div>
             </div>
 
-            <div className="grid gap-2">
-              <Label htmlFor="salesOrganization">Sales Organization</Label>
-              <Input
-                id="salesOrganization"
-                type="text"
-                placeholder="1000"
-                value={values.salesOrganization}
-                onChange={handleChange("salesOrganization")}
-              />
-            </div>
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
+              <div className="grid gap-2">
+                <Label htmlFor="salesOrganization">Sales Organization</Label>
+                <Input
+                  id="salesOrganization"
+                  type="text"
+                  placeholder="1000"
+                  value={values.salesOrganization}
+                  onChange={handleChange("salesOrganization")}
+                />
+              </div>
 
-            <div className="grid gap-2">
-              <Label htmlFor="distributionChannel">Distribution Channel</Label>
-              <Input
-                id="distributionChannel"
-                type="text"
-                placeholder="10"
-                value={values.distributionChannel}
-                onChange={handleChange("distributionChannel")}
-              />
-            </div>
+              <div className="grid gap-2">
+                <Label htmlFor="distributionChannel">Distribution Channel</Label>
+                <Input
+                  id="distributionChannel"
+                  type="text"
+                  placeholder="10"
+                  value={values.distributionChannel}
+                  onChange={handleChange("distributionChannel")}
+                />
+              </div>
 
-            <div className="grid gap-2">
-              <Label htmlFor="division">Division</Label>
-              <Input
-                id="division"
-                type="text"
-                placeholder="01"
-                value={values.division}
-                onChange={handleChange("division")}
-              />
+              <div className="grid gap-2">
+                <Label htmlFor="division">Division</Label>
+                <Input
+                  id="division"
+                  type="text"
+                  placeholder="01"
+                  value={values.division}
+                  onChange={handleChange("division")}
+                />
+              </div>
             </div>
 
             <div className="grid gap-2">
