@@ -11,6 +11,7 @@ import { useEffect, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
+import { cn } from "@/lib/utils";
 
 function NotFoundComponent() {
   return (
@@ -77,11 +78,11 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "Lovable Generated Project" },
+      { title: "Dashboard" },
+      { name: "description", content: "A clean dashboard for managing documents and workflows." },
       { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Lovable Generated Project" },
+      { property: "og:title", content: "Dashboard" },
+      { property: "og:description", content: "A clean dashboard for managing documents and workflows." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:site", content: "@Lovable" },
@@ -114,13 +115,49 @@ function RootShell({ children }: { children: ReactNode }) {
   );
 }
 
+function TopNav() {
+  return (
+    <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+      <div className="mx-auto flex h-14 max-w-6xl items-center px-6">
+        <Link to="/" className="mr-8 flex items-center gap-2 text-sm font-semibold text-foreground">
+          <div className="size-6 rounded-md bg-primary" />
+          Dashboard
+        </Link>
+        <nav className="flex items-center gap-1">
+          <NavLink to="/">Home</NavLink>
+          <NavLink to="/workflows">Workflows</NavLink>
+        </nav>
+      </div>
+    </header>
+  );
+}
+
+function NavLink({ to, children }: { to: string; children: React.ReactNode }) {
+  return (
+    <Link
+      to={to}
+      activeOptions={{ exact: to === "/" }}
+      inactiveProps={{ className: "text-muted-foreground hover:text-foreground" }}
+      activeProps={{ className: "text-foreground bg-accent" }}
+      className={cn(
+        "rounded-md px-3 py-1.5 text-sm font-medium transition-colors",
+      )}
+    >
+      {children}
+    </Link>
+  );
+}
+
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
 
   return (
     <QueryClientProvider client={queryClient}>
-      {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
-      <Outlet />
+      <div className="flex min-h-screen flex-col bg-background">
+        <TopNav />
+        {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
+        <Outlet />
+      </div>
     </QueryClientProvider>
   );
 }
