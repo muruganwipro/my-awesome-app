@@ -44,7 +44,7 @@ function ConversionDecisionPage() {
   const [values, setValues] = useState(initialValues);
 
   function handleChange(field: keyof typeof values) {
-    return (e: React.ChangeEvent<HTMLInputElement>) => {
+    return (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
       setValues((prev) => ({ ...prev, [field]: e.target.value }));
     };
   }
