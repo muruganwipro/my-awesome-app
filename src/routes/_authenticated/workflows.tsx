@@ -37,16 +37,17 @@ function WorkflowsPage() {
 
         <div className="mt-4 rounded-2xl border bg-card p-6 shadow-sm">
           <Link
-            to="/"
-            className="flex items-center gap-4 rounded-xl border bg-background p-4 transition-colors hover:bg-accent hover:text-accent-foreground"
+            to="/conversion-decision"
+            className="group flex items-center gap-4 rounded-xl border bg-background p-4 transition-colors hover:bg-accent hover:text-accent-foreground"
           >
             <div className="flex size-10 items-center justify-center rounded-lg bg-primary/10">
               <MessageSquare className="size-5 text-primary" />
             </div>
-            <div>
+            <div className="flex-1">
               <p className="font-medium text-foreground">Communicate Conversion Decision to BMS</p>
               <p className="text-sm text-muted-foreground">Notify BMS of the conversion decision.</p>
             </div>
+            <ArrowRight className="size-5 text-muted-foreground transition-transform group-hover:translate-x-1" />
           </Link>
         </div>
       </div>
