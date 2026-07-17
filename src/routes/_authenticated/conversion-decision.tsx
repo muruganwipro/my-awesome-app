@@ -151,6 +151,109 @@ function ConversionDecisionPage() {
               />
             </div>
 
+            <div className="grid gap-2">
+              <Label htmlFor="consultationNotes">Consultation Notes</Label>
+              <Textarea
+                id="consultationNotes"
+                placeholder="Treating physician decided to consider patient as candidate for Enrolling in EAP - JCAR017 - EAP - 001 Cohort 1. Physician anticipates obtaining patient consent between 10/27/2025 and 11/3/2025"
+                value={values.consultationNotes}
+                onChange={handleChange("consultationNotes")}
+                rows={4}
+              />
+            </div>
+
+            <div className="pt-2">
+              <h3 className="text-base font-semibold text-foreground">Send Request to create Sales order in SAP</h3>
+            </div>
+
+            <div className="grid gap-2">
+              <Label htmlFor="materialNo">Material No</Label>
+              <Input
+                id="materialNo"
+                type="text"
+                placeholder="4075260"
+                value={values.materialNo}
+                onChange={handleChange("materialNo")}
+              />
+            </div>
+
+            <div className="grid gap-2">
+              <Label htmlFor="plant">Plant</Label>
+              <Input
+                id="plant"
+                type="text"
+                placeholder="1000"
+                value={values.plant}
+                onChange={handleChange("plant")}
+              />
+            </div>
+
+            <div className="grid gap-2">
+              <Label htmlFor="customerId">Customer ID</Label>
+              <Input
+                id="customerId"
+                type="text"
+                placeholder="40001"
+                value={values.customerId}
+                onChange={handleChange("customerId")}
+              />
+            </div>
+
+            <div className="grid gap-2">
+              <Label htmlFor="quantity">Quantity</Label>
+              <Input
+                id="quantity"
+                type="text"
+                placeholder="10"
+                value={values.quantity}
+                onChange={handleChange("quantity")}
+              />
+            </div>
+
+            <div className="grid gap-2">
+              <Label htmlFor="salesOrganization">Sales Organization</Label>
+              <Input
+                id="salesOrganization"
+                type="text"
+                placeholder="1000"
+                value={values.salesOrganization}
+                onChange={handleChange("salesOrganization")}
+              />
+            </div>
+
+            <div className="grid gap-2">
+              <Label htmlFor="distributionChannel">Distribution Channel</Label>
+              <Input
+                id="distributionChannel"
+                type="text"
+                placeholder="10"
+                value={values.distributionChannel}
+                onChange={handleChange("distributionChannel")}
+              />
+            </div>
+
+            <div className="grid gap-2">
+              <Label htmlFor="division">Division</Label>
+              <Input
+                id="division"
+                type="text"
+                placeholder="01"
+                value={values.division}
+                onChange={handleChange("division")}
+              />
+            </div>
+
+            <div className="grid gap-2">
+              <Label htmlFor="partyAddress">Party Address</Label>
+              <Textarea
+                id="partyAddress"
+                placeholder="2475 Pinnacle Drive, Wilmington, Delaware"
+                value={values.partyAddress}
+                onChange={handleChange("partyAddress")}
+                rows={3}
+              />
+            </div>
+
             <Button type="submit" className="mt-2 w-full sm:w-auto">
               <Send className="size-4" />
               Submit
