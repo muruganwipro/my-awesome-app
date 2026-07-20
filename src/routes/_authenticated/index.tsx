@@ -245,7 +245,7 @@ function DashboardPage() {
           disabled={uploading}
         >
           {uploading ? <Loader2 className="size-4 animate-spin" /> : <Upload className="size-4" />}
-          {uploading ? "Uploading…" : "Upload Document"}
+          {uploading ? "Uploading…" : "Upload Physician Details"}
         </Button>
       </div>
 
