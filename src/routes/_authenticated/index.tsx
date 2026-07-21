@@ -60,12 +60,6 @@ const statusVariant: Record<string, "default" | "secondary" | "destructive"> = {
   Failed: "destructive",
 };
 
-function formatSize(bytes: number): string {
-  if (bytes < 1024) return `${bytes} B`;
-  if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)} KB`;
-  return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
-}
-
 const MAX_BYTES = 20 * 1024 * 1024; // 20 MB
 
 function DashboardPage() {
@@ -156,7 +150,7 @@ function DashboardPage() {
   const columns: ColumnDef<DocumentRow>[] = [
     {
       accessorKey: "name",
-      header: "Name",
+      header: "Physician Name",
       cell: ({ row }) => {
         const category = categorize(row.original.file_type, row.original.name);
         return (
@@ -174,18 +168,11 @@ function DashboardPage() {
     },
     {
       accessorKey: "file_type",
-      header: "Type",
+      header: "Case ID",
       cell: ({ row }) => (
         <span className="text-muted-foreground">
           {categorize(row.original.file_type, row.original.name)}
         </span>
-      ),
-    },
-    {
-      accessorKey: "size_bytes",
-      header: "Size",
-      cell: ({ row }) => (
-        <span className="text-muted-foreground">{formatSize(row.original.size_bytes)}</span>
       ),
     },
     {
@@ -199,7 +186,7 @@ function DashboardPage() {
     },
     {
       accessorKey: "created_at",
-      header: "Uploaded",
+      header: "Updated Date",
       cell: ({ row }) => (
         <span className="text-muted-foreground">
           {new Date(row.original.created_at).toLocaleDateString()}
