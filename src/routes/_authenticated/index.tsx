@@ -13,9 +13,9 @@ import { useAuth } from "@/hooks/use-auth";
 export const Route = createFileRoute("/_authenticated/")({
   head: () => ({
     meta: [
-      { title: "Home — Dashboard" },
+      { title: "Home — BMS" },
       { name: "description", content: "View and manage your uploaded documents." },
-      { property: "og:title", content: "Home — Dashboard" },
+      { property: "og:title", content: "Home — BMS" },
       { property: "og:description", content: "View and manage your uploaded documents." },
     ],
   }),
