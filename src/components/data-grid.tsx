@@ -24,9 +24,10 @@ interface DataGridProps<TData> {
   columns: ColumnDef<TData>[];
   data: TData[];
   className?: string;
+  onRowClick?: (row: TData) => void;
 }
 
-export function DataGrid<TData>({ columns, data, className }: DataGridProps<TData>) {
+export function DataGrid<TData>({ columns, data, className, onRowClick }: DataGridProps<TData>) {
   const [sorting, setSorting] = React.useState<SortingState>([]);
 
   const table = useReactTable({
@@ -67,14 +68,20 @@ export function DataGrid<TData>({ columns, data, className }: DataGridProps<TDat
         <TableBody>
           {table.getRowModel().rows.length ? (
             table.getRowModel().rows.map((row) => (
-              <TableRow key={row.id}>
+              <TableRow
+                key={row.id}
+                className={cn(
+                  onRowClick && "cursor-pointer hover:bg-muted/50"
+                )}
+                onClick={() => onRowClick?.(row.original)}
+              >
                 {row.getVisibleCells().map((cell) => (
                   <TableCell key={cell.id}>
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}
                   </TableCell>
                 ))}
               </TableRow>
-            )))
+           )))
            : (
             <TableRow>
               <TableCell colSpan={columns.length} className="h-24 text-center text-muted-foreground">

@@ -1,7 +1,6 @@
-import { createFileRoute } from "@tanstack/react-router";
-import { Upload, FileText, FileSpreadsheet, FileImage, File as FileIcon, Trash2, Loader2 } from "lucide-react";
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { Upload, Loader2 } from "lucide-react";
 import { type ColumnDef } from "@tanstack/react-table";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useRef, useState } from "react";
 import { toast } from "sonner";
 
@@ -23,79 +22,49 @@ export const Route = createFileRoute("/_authenticated/")({
   component: DashboardPage,
 });
 
-interface DocumentRow {
+interface CaseRow {
   id: string;
-  name: string;
-  file_type: string;
-  size_bytes: number;
-  storage_path: string;
+  physicianName: string;
+  caseId: string;
   status: string;
-  created_at: string;
+  updatedDate: string;
+  route: "/conversion-decision" | "/mrb-rejection";
 }
-
-type Category = "PDF" | "Spreadsheet" | "Image" | "Other";
-
-function categorize(mime: string, name: string): Category {
-  const lower = name.toLowerCase();
-  if (mime === "application/pdf" || lower.endsWith(".pdf")) return "PDF";
-  if (mime.startsWith("image/")) return "Image";
-  if (
-    mime.includes("spreadsheet") ||
-    mime === "text/csv" ||
-    /\.(xlsx?|csv|ods|numbers)$/.test(lower)
-  ) return "Spreadsheet";
-  return "Other";
-}
-
-const typeIcon: Record<Category, React.ReactNode> = {
-  PDF: <FileText className="size-4 text-muted-foreground" />,
-  Spreadsheet: <FileSpreadsheet className="size-4 text-muted-foreground" />,
-  Image: <FileImage className="size-4 text-muted-foreground" />,
-  Other: <FileIcon className="size-4 text-muted-foreground" />,
-};
 
 const statusVariant: Record<string, "default" | "secondary" | "destructive"> = {
+  "Conversion Decision to BMS": "default",
+  "Upload MRB minutes": "secondary",
   Processed: "default",
   Processing: "secondary",
   Failed: "destructive",
 };
 
+const CASES: CaseRow[] = [
+  {
+    id: "1",
+    physicianName: "Pamela Blair",
+    caseId: "PB23421R",
+    status: "Conversion Decision to BMS",
+    updatedDate: "13/12/25",
+    route: "/conversion-decision",
+  },
+  {
+    id: "2",
+    physicianName: "Jean Koff",
+    caseId: "JK23345S",
+    status: "Upload MRB minutes",
+    updatedDate: "01/12/25",
+    route: "/mrb-rejection",
+  },
+];
+
 const MAX_BYTES = 20 * 1024 * 1024; // 20 MB
 
 function DashboardPage() {
   const { user } = useAuth();
-  const queryClient = useQueryClient();
+  const navigate = useNavigate({ from: "/" });
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [uploading, setUploading] = useState(false);
-
-  const { data: documents = [], isLoading } = useQuery({
-    queryKey: ["documents", user?.id],
-    enabled: !!user,
-    queryFn: async () => {
-      const { data, error } = await supabase
-        .from("documents")
-        .select("id, name, file_type, size_bytes, storage_path, status, created_at")
-        .order("created_at", { ascending: false });
-      if (error) throw error;
-      return data as DocumentRow[];
-    },
-  });
-
-  const deleteMutation = useMutation({
-    mutationFn: async (doc: DocumentRow) => {
-      const { error: storageError } = await supabase.storage
-        .from("documents")
-        .remove([doc.storage_path]);
-      if (storageError) throw storageError;
-      const { error } = await supabase.from("documents").delete().eq("id", doc.id);
-      if (error) throw error;
-    },
-    onSuccess: () => {
-      toast.success("Document deleted");
-      queryClient.invalidateQueries({ queryKey: ["documents"] });
-    },
-    onError: (e: Error) => toast.error(e.message),
-  });
 
   async function handleFiles(files: FileList | null) {
     if (!files || files.length === 0 || !user) return;
@@ -129,50 +98,25 @@ function DashboardPage() {
         }
         toast.success(`${file.name} uploaded`);
       }
-      queryClient.invalidateQueries({ queryKey: ["documents"] });
     } finally {
       setUploading(false);
       if (fileInputRef.current) fileInputRef.current.value = "";
     }
   }
 
-  async function handleDownload(doc: DocumentRow) {
-    const { data, error } = await supabase.storage
-      .from("documents")
-      .createSignedUrl(doc.storage_path, 60);
-    if (error) {
-      toast.error(error.message);
-      return;
-    }
-    window.open(data.signedUrl, "_blank", "noopener,noreferrer");
-  }
-
-  const columns: ColumnDef<DocumentRow>[] = [
+  const columns: ColumnDef<CaseRow>[] = [
     {
-      accessorKey: "name",
+      accessorKey: "physicianName",
       header: "Physician Name",
-      cell: ({ row }) => {
-        const category = categorize(row.original.file_type, row.original.name);
-        return (
-          <button
-            onClick={() => handleDownload(row.original)}
-            className="flex items-center gap-3 text-left hover:underline"
-          >
-            <div className="flex size-8 items-center justify-center rounded-lg bg-muted">
-              {typeIcon[category]}
-            </div>
-            <span className="font-medium text-foreground">{row.original.name}</span>
-          </button>
-        );
-      },
+      cell: ({ row }) => (
+        <span className="font-medium text-foreground">{row.original.physicianName}</span>
+      ),
     },
     {
-      accessorKey: "file_type",
+      accessorKey: "caseId",
       header: "Case ID",
       cell: ({ row }) => (
-        <span className="text-muted-foreground">
-          {categorize(row.original.file_type, row.original.name)}
-        </span>
+        <span className="text-muted-foreground">{row.original.caseId}</span>
       ),
     },
     {
@@ -185,27 +129,10 @@ function DashboardPage() {
       ),
     },
     {
-      accessorKey: "created_at",
+      accessorKey: "updatedDate",
       header: "Updated Date",
       cell: ({ row }) => (
-        <span className="text-muted-foreground">
-          {new Date(row.original.created_at).toLocaleDateString()}
-        </span>
-      ),
-    },
-    {
-      id: "actions",
-      header: "",
-      cell: ({ row }) => (
-        <Button
-          variant="ghost"
-          size="icon"
-          onClick={() => deleteMutation.mutate(row.original)}
-          disabled={deleteMutation.isPending}
-          aria-label={`Delete ${row.original.name}`}
-        >
-          <Trash2 className="size-4" />
-        </Button>
+        <span className="text-muted-foreground">{row.original.updatedDate}</span>
       ),
     },
   ];
@@ -216,7 +143,7 @@ function DashboardPage() {
         <div className="flex flex-col gap-1">
           <h1 className="text-2xl font-semibold tracking-tight text-foreground">Cases</h1>
           <p className="text-sm text-muted-foreground">
-            Cases refered for convertions and their status
+            Cases referred for conversions and their status
           </p>
         </div>
         <input
@@ -237,13 +164,11 @@ function DashboardPage() {
       </div>
 
       <section className="mt-8">
-        {isLoading ? (
-          <div className="flex items-center justify-center py-12 text-muted-foreground">
-            <Loader2 className="size-5 animate-spin" />
-          </div>
-        ) : (
-          <DataGrid columns={columns} data={documents} />
-        )}
+        <DataGrid
+          columns={columns}
+          data={CASES}
+          onRowClick={(row) => navigate({ to: row.route })}
+        />
       </section>
     </main>
   );
