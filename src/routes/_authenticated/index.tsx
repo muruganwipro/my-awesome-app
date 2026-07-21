@@ -156,7 +156,7 @@ function DashboardPage() {
   const columns: ColumnDef<DocumentRow>[] = [
     {
       accessorKey: "name",
-      header: "Name",
+      header: "Physician Name",
       cell: ({ row }) => {
         const category = categorize(row.original.file_type, row.original.name);
         return (
@@ -174,18 +174,11 @@ function DashboardPage() {
     },
     {
       accessorKey: "file_type",
-      header: "Type",
+      header: "Case ID",
       cell: ({ row }) => (
         <span className="text-muted-foreground">
           {categorize(row.original.file_type, row.original.name)}
         </span>
-      ),
-    },
-    {
-      accessorKey: "size_bytes",
-      header: "Size",
-      cell: ({ row }) => (
-        <span className="text-muted-foreground">{formatSize(row.original.size_bytes)}</span>
       ),
     },
     {
@@ -199,7 +192,7 @@ function DashboardPage() {
     },
     {
       accessorKey: "created_at",
-      header: "Uploaded",
+      header: "Updated Date",
       cell: ({ row }) => (
         <span className="text-muted-foreground">
           {new Date(row.original.created_at).toLocaleDateString()}
