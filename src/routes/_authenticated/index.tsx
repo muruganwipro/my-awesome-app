@@ -1,7 +1,6 @@
-import { createFileRoute } from "@tanstack/react-router";
-import { Upload, FileText, FileSpreadsheet, FileImage, File as FileIcon, Trash2, Loader2 } from "lucide-react";
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { Upload, Loader2 } from "lucide-react";
 import { type ColumnDef } from "@tanstack/react-table";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useRef, useState } from "react";
 import { toast } from "sonner";
 
