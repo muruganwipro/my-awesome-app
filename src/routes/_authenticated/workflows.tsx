@@ -16,7 +16,7 @@ export const Route = createFileRoute("/_authenticated/workflows")({
 function WorkflowsPage() {
   return (
     <main className="mx-auto w-full max-w-6xl px-6 py-10">
-      <div className="flex flex-col gap-1">
+      {/* <div className="flex flex-col gap-1">
         <h1 className="text-2xl font-semibold tracking-tight text-foreground">Workflows</h1>
         <p className="text-sm text-muted-foreground">Build and automate your document workflows.</p>
       </div>
@@ -29,7 +29,7 @@ function WorkflowsPage() {
         <p className="mt-1 max-w-sm text-center text-sm text-muted-foreground">
           Create your first workflow to start processing documents automatically.
         </p>
-      </div>
+      </div> */}
 
       <div className="mt-10">
         <h2 className="text-lg font-semibold tracking-tight text-foreground">Forms</h2>
