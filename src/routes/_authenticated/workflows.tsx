@@ -35,7 +35,7 @@ function WorkflowsPage() {
         <h2 className="text-lg font-semibold tracking-tight text-foreground">Forms</h2>
         <p className="text-sm text-muted-foreground">Quick actions and intake forms.</p>
 
-        <div className="mt-4 rounded-2xl border bg-card p-6 shadow-sm">
+        <div className="mt-4 flex flex-col gap-4 rounded-2xl border bg-card p-6 shadow-sm">
           <Link
             to="/conversion-decision"
             className="group flex items-center gap-4 rounded-xl border bg-background p-4 transition-colors hover:bg-accent hover:text-accent-foreground"
@@ -46,6 +46,20 @@ function WorkflowsPage() {
             <div className="flex-1">
               <p className="font-medium text-foreground">Communicate Conversion Decision to BMS</p>
               <p className="text-sm text-muted-foreground">Notify BMS of the conversion decision.</p>
+            </div>
+            <ArrowRight className="size-5 text-muted-foreground transition-transform group-hover:translate-x-1" />
+          </Link>
+
+          <Link
+            to="/mrb-rejection"
+            className="group flex items-center gap-4 rounded-xl border bg-background p-4 transition-colors hover:bg-accent hover:text-accent-foreground"
+          >
+            <div className="flex size-10 items-center justify-center rounded-lg bg-primary/10">
+              <FileUp className="size-5 text-primary" />
+            </div>
+            <div className="flex-1">
+              <p className="font-medium text-foreground">Upload MRB minutes and send batch rejection</p>
+              <p className="text-sm text-muted-foreground">Upload MRB minutes and request batch rejection.</p>
             </div>
             <ArrowRight className="size-5 text-muted-foreground transition-transform group-hover:translate-x-1" />
           </Link>
