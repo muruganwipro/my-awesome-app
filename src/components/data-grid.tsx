@@ -24,9 +24,10 @@ interface DataGridProps<TData> {
   columns: ColumnDef<TData>[];
   data: TData[];
   className?: string;
+  onRowClick?: (row: TData) => void;
 }
 
-export function DataGrid<TData>({ columns, data, className }: DataGridProps<TData>) {
+export function DataGrid<TData>({ columns, data, className, onRowClick }: DataGridProps<TData>) {
   const [sorting, setSorting] = React.useState<SortingState>([]);
 
   const table = useReactTable({
