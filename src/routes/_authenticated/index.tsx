@@ -227,9 +227,9 @@ function DashboardPage() {
     <main className="mx-auto w-full max-w-6xl px-6 py-10">
       <div className="flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
         <div className="flex flex-col gap-1">
-          <h1 className="text-2xl font-semibold tracking-tight text-foreground">Documents</h1>
+          <h1 className="text-2xl font-semibold tracking-tight text-foreground">Cases</h1>
           <p className="text-sm text-muted-foreground">
-            Manage and review your uploaded documents.
+            Cases refered for convertions and their status
           </p>
         </div>
         <input
