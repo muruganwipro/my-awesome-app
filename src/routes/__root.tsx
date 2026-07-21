@@ -92,16 +92,16 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Dashboard" },
-      { name: "description", content: "A clean dashboard for managing documents and workflows." },
+      { title: "BMS" },
+      { name: "description", content: "A clean BMS for managing documents and workflows." },
       { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Dashboard" },
-      { property: "og:description", content: "A clean dashboard for managing documents and workflows." },
+      { property: "og:title", content: "BMS" },
+      { property: "og:description", content: "A clean BMS for managing documents and workflows." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:site", content: "@Lovable" },
-      { name: "twitter:title", content: "Dashboard" },
-      { name: "twitter:description", content: "A clean dashboard for managing documents and workflows." },
+      { name: "twitter:title", content: "BMS" },
+      { name: "twitter:description", content: "A clean BMS for managing documents and workflows." },
       { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/24ad830b-13d1-4817-bcb7-012d01f922cd/id-preview-376853a7--cc014b07-c42a-4542-9ac9-f5324bc84aa1.lovable.app-1784639953718.png" },
       { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/24ad830b-13d1-4817-bcb7-012d01f922cd/id-preview-376853a7--cc014b07-c42a-4542-9ac9-f5324bc84aa1.lovable.app-1784639953718.png" },
     ],
@@ -139,7 +139,7 @@ function TopNav() {
       <div className="mx-auto flex h-14 max-w-6xl items-center px-6">
         <Link to="/" className="mr-8 flex items-center gap-2 text-sm font-semibold text-foreground">
           <div className="size-6 rounded-md bg-primary" />
-          Dashboard
+          BMS
         </Link>
         <nav className="flex items-center gap-1">
           <NavLink to="/">Home</NavLink>
