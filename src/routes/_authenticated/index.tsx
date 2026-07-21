@@ -60,12 +60,6 @@ const statusVariant: Record<string, "default" | "secondary" | "destructive"> = {
   Failed: "destructive",
 };
 
-function formatSize(bytes: number): string {
-  if (bytes < 1024) return `${bytes} B`;
-  if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)} KB`;
-  return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
-}
-
 const MAX_BYTES = 20 * 1024 * 1024; // 20 MB
 
 function DashboardPage() {
