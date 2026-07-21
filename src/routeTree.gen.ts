@@ -73,7 +73,11 @@ export interface FileRoutesById {
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
-    '/' | '/auth' | '/sitemap.xml' | '/conversion-decision' | '/workflows'
+    | '/'
+    | '/auth'
+    | '/sitemap.xml'
+    | '/conversion-decision'
+    | '/workflows'
   fileRoutesByTo: FileRoutesByTo
   to: '/auth' | '/sitemap.xml' | '/conversion-decision' | '/workflows' | '/'
   id:
