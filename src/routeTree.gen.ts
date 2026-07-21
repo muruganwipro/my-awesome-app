@@ -14,6 +14,7 @@ import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as AuthenticatedIndexRouteImport } from './routes/_authenticated/index'
 import { Route as AuthenticatedWorkflowsRouteImport } from './routes/_authenticated/workflows'
+import { Route as AuthenticatedMrbRejectionRouteImport } from './routes/_authenticated/mrb-rejection'
 import { Route as AuthenticatedConversionDecisionRouteImport } from './routes/_authenticated/conversion-decision'
 
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
@@ -40,6 +41,12 @@ const AuthenticatedWorkflowsRoute = AuthenticatedWorkflowsRouteImport.update({
   path: '/workflows',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedMrbRejectionRoute =
+  AuthenticatedMrbRejectionRouteImport.update({
+    id: '/mrb-rejection',
+    path: '/mrb-rejection',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 const AuthenticatedConversionDecisionRoute =
   AuthenticatedConversionDecisionRouteImport.update({
     id: '/conversion-decision',
@@ -52,12 +59,14 @@ export interface FileRoutesByFullPath {
   '/auth': typeof AuthRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/conversion-decision': typeof AuthenticatedConversionDecisionRoute
+  '/mrb-rejection': typeof AuthenticatedMrbRejectionRoute
   '/workflows': typeof AuthenticatedWorkflowsRoute
 }
 export interface FileRoutesByTo {
   '/auth': typeof AuthRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/conversion-decision': typeof AuthenticatedConversionDecisionRoute
+  '/mrb-rejection': typeof AuthenticatedMrbRejectionRoute
   '/workflows': typeof AuthenticatedWorkflowsRoute
   '/': typeof AuthenticatedIndexRoute
 }
@@ -67,6 +76,7 @@ export interface FileRoutesById {
   '/auth': typeof AuthRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/_authenticated/conversion-decision': typeof AuthenticatedConversionDecisionRoute
+  '/_authenticated/mrb-rejection': typeof AuthenticatedMrbRejectionRoute
   '/_authenticated/workflows': typeof AuthenticatedWorkflowsRoute
   '/_authenticated/': typeof AuthenticatedIndexRoute
 }
@@ -77,15 +87,23 @@ export interface FileRouteTypes {
     | '/auth'
     | '/sitemap.xml'
     | '/conversion-decision'
+    | '/mrb-rejection'
     | '/workflows'
   fileRoutesByTo: FileRoutesByTo
-  to: '/auth' | '/sitemap.xml' | '/conversion-decision' | '/workflows' | '/'
+  to:
+    | '/auth'
+    | '/sitemap.xml'
+    | '/conversion-decision'
+    | '/mrb-rejection'
+    | '/workflows'
+    | '/'
   id:
     | '__root__'
     | '/_authenticated'
     | '/auth'
     | '/sitemap.xml'
     | '/_authenticated/conversion-decision'
+    | '/_authenticated/mrb-rejection'
     | '/_authenticated/workflows'
     | '/_authenticated/'
   fileRoutesById: FileRoutesById
@@ -133,6 +151,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedWorkflowsRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/mrb-rejection': {
+      id: '/_authenticated/mrb-rejection'
+      path: '/mrb-rejection'
+      fullPath: '/mrb-rejection'
+      preLoaderRoute: typeof AuthenticatedMrbRejectionRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/conversion-decision': {
       id: '/_authenticated/conversion-decision'
       path: '/conversion-decision'
@@ -145,12 +170,14 @@ declare module '@tanstack/react-router' {
 
 interface AuthenticatedRouteRouteChildren {
   AuthenticatedConversionDecisionRoute: typeof AuthenticatedConversionDecisionRoute
+  AuthenticatedMrbRejectionRoute: typeof AuthenticatedMrbRejectionRoute
   AuthenticatedWorkflowsRoute: typeof AuthenticatedWorkflowsRoute
   AuthenticatedIndexRoute: typeof AuthenticatedIndexRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedConversionDecisionRoute: AuthenticatedConversionDecisionRoute,
+  AuthenticatedMrbRejectionRoute: AuthenticatedMrbRejectionRoute,
   AuthenticatedWorkflowsRoute: AuthenticatedWorkflowsRoute,
   AuthenticatedIndexRoute: AuthenticatedIndexRoute,
 }
@@ -166,13 +193,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
