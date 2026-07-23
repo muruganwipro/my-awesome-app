@@ -1,13 +1,13 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { GitBranch, MessageSquare, FileUp, ArrowRight } from "lucide-react";
+import { GitBranch, MessageSquare, FileUp, ClipboardList, ArrowRight } from "lucide-react";
 
 export const Route = createFileRoute("/_authenticated/workflows")({
   head: () => ({
     meta: [
-      { title: "Workflows — Dashboard" },
-      { name: "description", content: "Manage and monitor your workflows." },
-      { property: "og:title", content: "Workflows — Dashboard" },
-      { property: "og:description", content: "Manage and monitor your workflows." },
+      { title: "Workflows — BMS" },
+      { name: "description", content: "Manage and monitor your BMS workflows." },
+      { property: "og:title", content: "Workflows — BMS" },
+      { property: "og:description", content: "Manage and monitor your BMS workflows." },
     ],
   }),
   component: WorkflowsPage,
@@ -60,6 +60,20 @@ function WorkflowsPage() {
             <div className="flex-1">
               <p className="font-medium text-foreground">Upload MRB minutes and send batch rejection</p>
               <p className="text-sm text-muted-foreground">Upload MRB minutes and request batch rejection.</p>
+            </div>
+            <ArrowRight className="size-5 text-muted-foreground transition-transform group-hover:translate-x-1" />
+          </Link>
+
+          <Link
+            to="/create-po-order"
+            className="group flex items-center gap-4 rounded-xl border bg-background p-4 transition-colors hover:bg-accent hover:text-accent-foreground"
+          >
+            <div className="flex size-10 items-center justify-center rounded-lg bg-primary/10">
+              <ClipboardList className="size-5 text-primary" />
+            </div>
+            <div className="flex-1">
+              <p className="font-medium text-foreground">Review Sales order result and Create PO Order</p>
+              <p className="text-sm text-muted-foreground">Review SAP response and create the OOS process order.</p>
             </div>
             <ArrowRight className="size-5 text-muted-foreground transition-transform group-hover:translate-x-1" />
           </Link>
