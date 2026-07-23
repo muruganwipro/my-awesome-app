@@ -17,6 +17,7 @@ import { Route as AuthenticatedWorkflowsRouteImport } from './routes/_authentica
 import { Route as AuthenticatedMrbRejectionRouteImport } from './routes/_authenticated/mrb-rejection'
 import { Route as AuthenticatedCreatePoOrderRouteImport } from './routes/_authenticated/create-po-order'
 import { Route as AuthenticatedConversionDecisionRouteImport } from './routes/_authenticated/conversion-decision'
+import { Route as AuthenticatedCommercialBatchRejectedRouteImport } from './routes/_authenticated/commercial-batch-rejected'
 
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   id: '/sitemap.xml',
@@ -60,11 +61,18 @@ const AuthenticatedConversionDecisionRoute =
     path: '/conversion-decision',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
+const AuthenticatedCommercialBatchRejectedRoute =
+  AuthenticatedCommercialBatchRejectedRouteImport.update({
+    id: '/commercial-batch-rejected',
+    path: '/commercial-batch-rejected',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof AuthenticatedIndexRoute
   '/auth': typeof AuthRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/commercial-batch-rejected': typeof AuthenticatedCommercialBatchRejectedRoute
   '/conversion-decision': typeof AuthenticatedConversionDecisionRoute
   '/create-po-order': typeof AuthenticatedCreatePoOrderRoute
   '/mrb-rejection': typeof AuthenticatedMrbRejectionRoute
@@ -73,6 +81,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/auth': typeof AuthRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/commercial-batch-rejected': typeof AuthenticatedCommercialBatchRejectedRoute
   '/conversion-decision': typeof AuthenticatedConversionDecisionRoute
   '/create-po-order': typeof AuthenticatedCreatePoOrderRoute
   '/mrb-rejection': typeof AuthenticatedMrbRejectionRoute
@@ -84,6 +93,7 @@ export interface FileRoutesById {
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/auth': typeof AuthRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/_authenticated/commercial-batch-rejected': typeof AuthenticatedCommercialBatchRejectedRoute
   '/_authenticated/conversion-decision': typeof AuthenticatedConversionDecisionRoute
   '/_authenticated/create-po-order': typeof AuthenticatedCreatePoOrderRoute
   '/_authenticated/mrb-rejection': typeof AuthenticatedMrbRejectionRoute
@@ -96,6 +106,7 @@ export interface FileRouteTypes {
     | '/'
     | '/auth'
     | '/sitemap.xml'
+    | '/commercial-batch-rejected'
     | '/conversion-decision'
     | '/create-po-order'
     | '/mrb-rejection'
@@ -104,6 +115,7 @@ export interface FileRouteTypes {
   to:
     | '/auth'
     | '/sitemap.xml'
+    | '/commercial-batch-rejected'
     | '/conversion-decision'
     | '/create-po-order'
     | '/mrb-rejection'
@@ -114,6 +126,7 @@ export interface FileRouteTypes {
     | '/_authenticated'
     | '/auth'
     | '/sitemap.xml'
+    | '/_authenticated/commercial-batch-rejected'
     | '/_authenticated/conversion-decision'
     | '/_authenticated/create-po-order'
     | '/_authenticated/mrb-rejection'
@@ -185,10 +198,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedConversionDecisionRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/commercial-batch-rejected': {
+      id: '/_authenticated/commercial-batch-rejected'
+      path: '/commercial-batch-rejected'
+      fullPath: '/commercial-batch-rejected'
+      preLoaderRoute: typeof AuthenticatedCommercialBatchRejectedRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
   }
 }
 
 interface AuthenticatedRouteRouteChildren {
+  AuthenticatedCommercialBatchRejectedRoute: typeof AuthenticatedCommercialBatchRejectedRoute
   AuthenticatedConversionDecisionRoute: typeof AuthenticatedConversionDecisionRoute
   AuthenticatedCreatePoOrderRoute: typeof AuthenticatedCreatePoOrderRoute
   AuthenticatedMrbRejectionRoute: typeof AuthenticatedMrbRejectionRoute
@@ -197,6 +218,8 @@ interface AuthenticatedRouteRouteChildren {
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedCommercialBatchRejectedRoute:
+    AuthenticatedCommercialBatchRejectedRoute,
   AuthenticatedConversionDecisionRoute: AuthenticatedConversionDecisionRoute,
   AuthenticatedCreatePoOrderRoute: AuthenticatedCreatePoOrderRoute,
   AuthenticatedMrbRejectionRoute: AuthenticatedMrbRejectionRoute,
@@ -215,13 +238,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
