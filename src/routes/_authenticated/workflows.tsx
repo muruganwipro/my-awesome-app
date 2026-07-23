@@ -4,10 +4,10 @@ import { GitBranch, MessageSquare, FileUp, ClipboardList, ArrowRight } from "luc
 export const Route = createFileRoute("/_authenticated/workflows")({
   head: () => ({
     meta: [
-      { title: "Workflows — Dashboard" },
-      { name: "description", content: "Manage and monitor your workflows." },
-      { property: "og:title", content: "Workflows — Dashboard" },
-      { property: "og:description", content: "Manage and monitor your workflows." },
+      { title: "Workflows — BMS" },
+      { name: "description", content: "Manage and monitor your BMS workflows." },
+      { property: "og:title", content: "Workflows — BMS" },
+      { property: "og:description", content: "Manage and monitor your BMS workflows." },
     ],
   }),
   component: WorkflowsPage,
