@@ -15,6 +15,7 @@ import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/
 import { Route as AuthenticatedIndexRouteImport } from './routes/_authenticated/index'
 import { Route as AuthenticatedWorkflowsRouteImport } from './routes/_authenticated/workflows'
 import { Route as AuthenticatedMrbRejectionRouteImport } from './routes/_authenticated/mrb-rejection'
+import { Route as AuthenticatedCreatePoOrderRouteImport } from './routes/_authenticated/create-po-order'
 import { Route as AuthenticatedConversionDecisionRouteImport } from './routes/_authenticated/conversion-decision'
 
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
@@ -47,6 +48,12 @@ const AuthenticatedMrbRejectionRoute =
     path: '/mrb-rejection',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
+const AuthenticatedCreatePoOrderRoute =
+  AuthenticatedCreatePoOrderRouteImport.update({
+    id: '/create-po-order',
+    path: '/create-po-order',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 const AuthenticatedConversionDecisionRoute =
   AuthenticatedConversionDecisionRouteImport.update({
     id: '/conversion-decision',
@@ -59,6 +66,7 @@ export interface FileRoutesByFullPath {
   '/auth': typeof AuthRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/conversion-decision': typeof AuthenticatedConversionDecisionRoute
+  '/create-po-order': typeof AuthenticatedCreatePoOrderRoute
   '/mrb-rejection': typeof AuthenticatedMrbRejectionRoute
   '/workflows': typeof AuthenticatedWorkflowsRoute
 }
@@ -66,6 +74,7 @@ export interface FileRoutesByTo {
   '/auth': typeof AuthRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/conversion-decision': typeof AuthenticatedConversionDecisionRoute
+  '/create-po-order': typeof AuthenticatedCreatePoOrderRoute
   '/mrb-rejection': typeof AuthenticatedMrbRejectionRoute
   '/workflows': typeof AuthenticatedWorkflowsRoute
   '/': typeof AuthenticatedIndexRoute
@@ -76,6 +85,7 @@ export interface FileRoutesById {
   '/auth': typeof AuthRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/_authenticated/conversion-decision': typeof AuthenticatedConversionDecisionRoute
+  '/_authenticated/create-po-order': typeof AuthenticatedCreatePoOrderRoute
   '/_authenticated/mrb-rejection': typeof AuthenticatedMrbRejectionRoute
   '/_authenticated/workflows': typeof AuthenticatedWorkflowsRoute
   '/_authenticated/': typeof AuthenticatedIndexRoute
@@ -87,6 +97,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/sitemap.xml'
     | '/conversion-decision'
+    | '/create-po-order'
     | '/mrb-rejection'
     | '/workflows'
   fileRoutesByTo: FileRoutesByTo
@@ -94,6 +105,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/sitemap.xml'
     | '/conversion-decision'
+    | '/create-po-order'
     | '/mrb-rejection'
     | '/workflows'
     | '/'
@@ -103,6 +115,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/sitemap.xml'
     | '/_authenticated/conversion-decision'
+    | '/_authenticated/create-po-order'
     | '/_authenticated/mrb-rejection'
     | '/_authenticated/workflows'
     | '/_authenticated/'
@@ -158,6 +171,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedMrbRejectionRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/create-po-order': {
+      id: '/_authenticated/create-po-order'
+      path: '/create-po-order'
+      fullPath: '/create-po-order'
+      preLoaderRoute: typeof AuthenticatedCreatePoOrderRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/conversion-decision': {
       id: '/_authenticated/conversion-decision'
       path: '/conversion-decision'
@@ -170,6 +190,7 @@ declare module '@tanstack/react-router' {
 
 interface AuthenticatedRouteRouteChildren {
   AuthenticatedConversionDecisionRoute: typeof AuthenticatedConversionDecisionRoute
+  AuthenticatedCreatePoOrderRoute: typeof AuthenticatedCreatePoOrderRoute
   AuthenticatedMrbRejectionRoute: typeof AuthenticatedMrbRejectionRoute
   AuthenticatedWorkflowsRoute: typeof AuthenticatedWorkflowsRoute
   AuthenticatedIndexRoute: typeof AuthenticatedIndexRoute
@@ -177,6 +198,7 @@ interface AuthenticatedRouteRouteChildren {
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedConversionDecisionRoute: AuthenticatedConversionDecisionRoute,
+  AuthenticatedCreatePoOrderRoute: AuthenticatedCreatePoOrderRoute,
   AuthenticatedMrbRejectionRoute: AuthenticatedMrbRejectionRoute,
   AuthenticatedWorkflowsRoute: AuthenticatedWorkflowsRoute,
   AuthenticatedIndexRoute: AuthenticatedIndexRoute,
@@ -193,13 +215,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
