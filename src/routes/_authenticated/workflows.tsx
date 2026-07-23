@@ -63,6 +63,20 @@ function WorkflowsPage() {
             </div>
             <ArrowRight className="size-5 text-muted-foreground transition-transform group-hover:translate-x-1" />
           </Link>
+
+          <Link
+            to="/create-po-order"
+            className="group flex items-center gap-4 rounded-xl border bg-background p-4 transition-colors hover:bg-accent hover:text-accent-foreground"
+          >
+            <div className="flex size-10 items-center justify-center rounded-lg bg-primary/10">
+              <ClipboardList className="size-5 text-primary" />
+            </div>
+            <div className="flex-1">
+              <p className="font-medium text-foreground">Review Sales order result and Create PO Order</p>
+              <p className="text-sm text-muted-foreground">Review SAP response and create the OOS process order.</p>
+            </div>
+            <ArrowRight className="size-5 text-muted-foreground transition-transform group-hover:translate-x-1" />
+          </Link>
         </div>
       </div>
     </main>
